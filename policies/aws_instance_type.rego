@@ -1,7 +1,7 @@
 package terraform
 
-deny if {
-  some r
-  input.resource_changes[r].type == "aws_instance"
-  not startswith(input.resource_changes[r].change.after.instance_type, "t3.")
+deny {
+  # Loop through resources by index
+  input.resource_changes[_].type == "aws_instance"
+  not startswith(input.resource_changes[_].change.after.instance_type, "t3.")
 }
